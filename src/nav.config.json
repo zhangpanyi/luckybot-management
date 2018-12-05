@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/account",
+    "name": "账户信息",
+    "icon": "toast"
+  },
+  {
+    "path": "/userlist",
+    "name": "用户列表",
+    "icon": "checklist"
+  },
+  {
+    "path": "/actions",
+    "name": "操作记录",
+    "icon": "action-sheet"
+  },
+  {
+    "path": "/publish",
+    "name": "发布公告",
+    "icon": "message-box"
+  },
+  {
+    "path": "/statistics",
+    "name": "数据统计",
+    "icon": "tabbar"
+  },
+  {
+    "path": "/backup",
+    "name": "备份数据",
+    "icon": "pull-down"
+  }
+]

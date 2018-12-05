@@ -1,113 +1,59 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
-  </div>
+  <section class="page-main">
+    <div>
+      <div class="page-title" v-text="title"></div>
+      <mt-cell v-for="item in navs"
+        :key=item
+        :to="item.path"
+        is-link
+      >
+        <div slot="title">
+          <i :class="['indexicon', 'icon-' + item.icon]"></i>
+          <span>{{ item.name }}</span>
+        </div>
+      </mt-cell>
+    </div>
+  </section>
 </template>
 
 <script>
+import NavConfig from '@/nav.config.json'
+
 export default {
   name: 'HelloWorld',
-  data () {
+
+  data: function () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      navs: [],
+      title: '管理后台'
     }
+  },
+
+  created () {
+    this.navs = NavConfig
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  .page-main {
+    padding-bottom: 50px;
+  }
+
+  .page-title {
+    font-size: 20px;
+    margin: 20px auto;
+    text-align: center;
+    display: block;
+    line-height: 1;
+  }
+
+  .indexicon {
+    font-size: 22px;
+    color: #26a2ff;
+    display: inline-block;
+    width: 30px;
+    vertical-align: middle;
+  }
 </style>
