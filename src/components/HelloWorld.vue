@@ -9,7 +9,7 @@
       >
         <div slot="title">
           <i :class="['indexicon', 'icon-' + item.icon]"></i>
-          <span>{{ item.name }}</span>
+          <span>{{ item.title }}</span>
         </div>
       </mt-cell>
     </div>
@@ -39,14 +39,6 @@ export default {
 <style>
   .page-main {
     padding-bottom: 50px;
-  }
-
-  .page-title {
-    font-size: 20px;
-    margin: 20px auto;
-    text-align: center;
-    display: block;
-    line-height: 1;
   }
 
   .indexicon {

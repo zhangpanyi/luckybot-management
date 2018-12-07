@@ -1,32 +1,38 @@
 [
   {
-    "path": "/account",
-    "name": "账户信息",
+    "path": "/Account",
+    "name": "Account",
+    "title": "账户信息",
     "icon": "toast"
   },
   {
-    "path": "/userlist",
-    "name": "用户列表",
+    "path": "/Userlist",
+    "name": "userlist",
+    "title": "用户列表",
     "icon": "checklist"
   },
   {
-    "path": "/actions",
-    "name": "操作记录",
+    "path": "/Actions",
+    "name": "Actions",
+    "title": "操作记录",
     "icon": "action-sheet"
   },
   {
-    "path": "/publish",
-    "name": "发布公告",
+    "path": "/Publish",
+    "name": "Publish",
+    "title": "发布公告",
     "icon": "message-box"
   },
   {
-    "path": "/statistics",
-    "name": "数据统计",
+    "path": "/Statistics",
+    "name": "Statistics",
+    "title": "数据统计",
     "icon": "tabbar"
   },
   {
-    "path": "/backup",
-    "name": "备份数据",
+    "path": "/Backup",
+    "name": "Backup",
+    "title": "备份数据",
     "icon": "pull-down"
   }
 ]

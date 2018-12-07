@@ -42,7 +42,7 @@ export default {
   },
 
   methods: {
-    async handleClick () {
+    async handleClick (event) {
       this.tips = false
       if (this.code.length !== 6) {
         this.tips = true

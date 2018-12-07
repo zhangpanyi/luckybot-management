@@ -20,15 +20,27 @@ class NodeService {
     }
 
     // 发请请求
-    const response = await axios.post(
-      `${server}/admin/${url}`,
-      JSON.stringify(message),
-      {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
-    )
+    let response
+    try {
+      response = await axios.post(
+        `${server}/admin/${url}`,
+        JSON.stringify(message),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          validateStatus: function (status) {
+            return true
+          }
+        }
+      )
+    } catch (error) {
+      return Promise.reject(new Error(error))
+    }
 
     // 是否识别
     if (!response.data.ack) {
-      this.$store.dispatch('network/setSession', undefined)
+      store.dispatch('network/setSession', undefined)
       return Promise.reject(new AuthError())
     }
 

@@ -1,12 +1,15 @@
 <template>
   <div id="app">
+    <router-link class="page-back" v-if="visible" :to="'/'">
+      <i class="mintui mintui-back"></i>
+    </router-link>
     <router-view/>
     <popup :popupVisible="popupVisible" @update="updatePopupVisible"/>
   </div>
 </template>
 
 <script>
-import Popup from '@/components/Popup'
+import Popup from '@/components/popup/Popup'
 
 export default {
   name: 'App',
@@ -15,6 +18,12 @@ export default {
   data () {
     return {
       popupVisible: false
+    }
+  },
+
+  computed: {
+    visible () {
+      return ['/'].indexOf(this.$route.path) < 0
     }
   },
 
@@ -36,12 +45,28 @@ export default {
 
 <style>
   html, body {
-    background-color: #fafafa;
+    background-color: #fafafad7;
     -webkit-overflow-scrolling: touch;
     user-select: none;
   }
 
   a {
     color: inherit;
+  }
+
+  .page-title {
+    font-size: 20px;
+    margin: 20px auto;
+    text-align: center;
+    display: block;
+    line-height: 1;
+  }
+
+  .page-back {
+    display: inline-block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    text-align: center;
   }
 </style>
