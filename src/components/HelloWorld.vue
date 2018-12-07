@@ -2,8 +2,8 @@
   <section class="page-main">
     <div>
       <div class="page-title" v-text="title"></div>
-      <mt-cell v-for="item in navs"
-        :key=item
+      <mt-cell v-for="(item, index) in navs"
+        :key=index
         :to="item.path"
         is-link
       >
@@ -18,6 +18,7 @@
 
 <script>
 import NavConfig from '@/nav.config.json'
+import AuthService from '@/services/auth'
 
 export default {
   name: 'HelloWorld',
@@ -31,6 +32,16 @@ export default {
 
   created () {
     this.navs = NavConfig
+  },
+
+  async mounted () {
+    await this.auth()
+  },
+
+  methods: {
+    async auth () {
+      AuthService.auth('123456')
+    }
   }
 }
 </script>
