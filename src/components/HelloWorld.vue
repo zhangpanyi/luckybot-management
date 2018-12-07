@@ -18,12 +18,11 @@
 
 <script>
 import NavConfig from '@/nav.config.json'
-import AuthService from '@/services/auth'
 
 export default {
   name: 'HelloWorld',
 
-  data: function () {
+  data () {
     return {
       navs: [],
       title: '管理后台'
@@ -32,22 +31,12 @@ export default {
 
   created () {
     this.navs = NavConfig
-  },
-
-  async mounted () {
-    await this.auth()
-  },
-
-  methods: {
-    async auth () {
-      AuthService.auth('123456')
-    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
   .page-main {
     padding-bottom: 50px;
   }

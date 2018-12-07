@@ -1,8 +1,8 @@
 export default {
-  types: {
-    code: '',
+  state: {
     server: '',
-    session: ''
+    code: undefined,
+    session: undefined
   },
 
   namespaced: true,
@@ -10,12 +10,14 @@ export default {
   mutations: {
     setCode (state, payload) {
       state.code = payload
+      localStorage.setItem('network/code', payload)
     },
     setServer (state, payload) {
       state.server = payload
     },
     setSession (state, payload) {
       state.session = payload
+      localStorage.setItem('network/session', payload)
     }
   },
 
@@ -32,8 +34,12 @@ export default {
   },
 
   getters: {
-    code: state => state.code,
-    server: state => state.server,
-    session: state => state.session
+    code: function (state) {
+      return state.code
+    },
+    session: function (state) {
+      return state.session
+    },
+    server: state => state.server
   }
 }

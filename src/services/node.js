@@ -28,6 +28,7 @@ class NodeService {
 
     // 是否识别
     if (!response.data.ack) {
+      this.$store.dispatch('network/setSession', undefined)
       return Promise.reject(new AuthError())
     }
 
@@ -46,7 +47,7 @@ class NodeService {
   // 生成密钥
   genKey () {
     let keys = []
-    const code = store.getters['network/code']
+    let code = store.getters['network/code']
     for (let i = 0; i < 16; i++) {
       if (i < code.length) {
         keys.push(code[i])
