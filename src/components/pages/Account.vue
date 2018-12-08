@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">账号信息</div>
-    <mt-field class="field" label="Telegram ID" v-model="userid" :value="userid">
+    <mt-field class="field" label="Telegram ID" v-model="userid" :value="userid" :attr="{maxlength: 10}">
       <mt-button class="button" type="default" size="small" @click.native="queryAccount">查询</mt-button>
     </mt-field>
     <div v-if="show">
@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui'
+import Utils from '@/scripts/utils'
+import { Toast, Indicator } from 'mint-ui'
 import DepositService from '@/services/deposit'
 import GetBalanceService from '@/services/getbalacne'
 
@@ -50,7 +51,7 @@ export default {
   methods: {
     // 查询账号
     async queryAccount (event) {
-      if (this.userid.length === 0 || this.userid.length > 10) {
+      if (!Utils.validateTelegramID(this.userid)) {
         Toast({
           message: 'Telegram ID 输入有误',
           position: 'top'
@@ -58,17 +59,9 @@ export default {
         return
       }
 
-      for (let i = 0; i < this.userid.length; i++) {
-        if (this.userid[i] < '0' || this.userid[i] > '9') {
-          Toast({
-            message: 'Telegram ID 输入有误',
-            position: 'top'
-          })
-          return
-        }
-      }
-
+      Indicator.open()
       const result = await GetBalanceService.getBalance(parseInt(this.userid))
+      Indicator.close()
       if (!result.ok) {
         Toast({
           message: '获取账号信息失败',
@@ -95,8 +88,10 @@ export default {
         return
       }
 
+      Indicator.open()
       let userid = this.result[0].value
       let result = await DepositService.deposit(userid, amount)
+      Indicator.close()
       if (!result.ok) {
         Toast({
           message: '充值失败，请重试',
