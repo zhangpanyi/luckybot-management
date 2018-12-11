@@ -6,9 +6,9 @@
     "icon": "toast"
   },
   {
-    "path": "/Userlist",
-    "name": "userlist",
-    "title": "用户列表",
+    "path": "/Luckylist",
+    "name": "Luckylist",
+    "title": "红包列表",
     "icon": "checklist"
   },
   {

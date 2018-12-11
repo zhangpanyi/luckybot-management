@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import AuthService from '@/services/auth'
+import Methods from '@/services/methods'
 
 export default {
   data () {
@@ -60,7 +60,7 @@ export default {
 
       this.disabled = true
       this.$store.dispatch('network/setCode', this.code)
-      let result = await AuthService.auth(this.code)
+      let result = await Methods.auth(this.code)
       if (!result.ok) {
         this.tips = true
         this.message = '认证失败'

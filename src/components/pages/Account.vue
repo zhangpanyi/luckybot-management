@@ -21,9 +21,8 @@
 
 <script>
 import Utils from '@/scripts/utils'
+import Methods from '@/services/methods'
 import { Toast, Indicator } from 'mint-ui'
-import DepositService from '@/services/deposit'
-import GetBalanceService from '@/services/getbalacne'
 
 export default {
   data () {
@@ -60,7 +59,7 @@ export default {
       }
 
       Indicator.open()
-      const result = await GetBalanceService.getBalance(parseInt(this.userid))
+      const result = await Methods.getBalance(parseInt(this.userid))
       Indicator.close()
       if (!result.ok) {
         Toast({
@@ -90,7 +89,7 @@ export default {
 
       Indicator.open()
       let userid = this.result[0].value
-      let result = await DepositService.deposit(userid, amount)
+      let result = await Methods.deposit(userid, amount)
       Indicator.close()
       if (!result.ok) {
         Toast({

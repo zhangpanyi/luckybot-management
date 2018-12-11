@@ -9,8 +9,8 @@
 </template>
 
 <script>
+import Methods from '@/services/methods'
 import { Toast, Indicator } from 'mint-ui'
-import PublishService from '@/services/publish'
 
 export default {
   data () {
@@ -30,7 +30,7 @@ export default {
       }
 
       Indicator.open()
-      let result = await PublishService.publicNotice(this.message)
+      let result = await Methods.publicNotice(this.message)
       Indicator.close()
       if (!result.ok) {
         Toast({

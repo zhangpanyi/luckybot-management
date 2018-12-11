@@ -29,8 +29,8 @@
 <script>
 import moment from 'moment'
 import Utils from '@/scripts/utils'
+import Methods from '@/services/methods'
 import { Toast, Indicator } from 'mint-ui'
-import ActionsService from '@/services/actions'
 
 // 发红包
 const ReasonGive = 1
@@ -140,7 +140,7 @@ export default {
       }
 
       Indicator.open()
-      let result = await ActionsService.getActions(
+      let result = await Methods.getActions(
         this.userid, (this.page - 1) * this.count, this.count)
       Indicator.close()
       if (!result.ok) {
