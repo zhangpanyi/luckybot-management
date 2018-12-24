@@ -14,6 +14,18 @@ class Methods {
     }
   }
 
+  // 备份数据
+  async backup () {
+    try {
+      const response = await NodeService.download('backup', {
+        tonce: Math.floor(Date.now() / 1000)
+      })
+      return {ok: true, data: response}
+    } catch (error) {
+      return {ok: false, error: error.message}
+    }
+  }
+
   // 充值金额
   async deposit (userID, amount) {
     try {

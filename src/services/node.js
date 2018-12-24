@@ -56,6 +56,47 @@ class NodeService {
     return rawdata.result
   }
 
+  async download (url, src) {
+    let key = this.genKey()
+    const server = store.getters['network/server']
+    const result = this.encrypt(key, key, JSON.stringify(src))
+
+    // 构造消息
+    const message = {
+      'data': result[0],
+      'checksum': result[1],
+      'session': store.getters['network/session']
+    }
+
+    // 发请请求
+    let response
+    try {
+      response = await axios.post(
+        `${server}/admin/${url}`,
+        JSON.stringify(message),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          responseType: 'blob',
+          validateStatus: function (status) {
+            return true
+          }
+        }
+      )
+    } catch (error) {
+      return Promise.reject(new Error(error))
+    }
+
+    if (response.status === 401) {
+      store.dispatch('network/setSession', undefined)
+      return Promise.reject(new AuthError())
+    } else if (response.status !== 200) {
+      return Promise.reject(new Error(`Error POST ${url} : status ${response.status}`))
+    }
+    return response.data
+  }
+
   // 生成密钥
   genKey () {
     let keys = []

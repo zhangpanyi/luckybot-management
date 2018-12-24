@@ -28,11 +28,5 @@
     "name": "Statistics",
     "title": "数据统计",
     "icon": "tabbar"
-  },
-  {
-    "path": "/Backup",
-    "name": "Backup",
-    "title": "备份数据",
-    "icon": "pull-down"
   }
 ]

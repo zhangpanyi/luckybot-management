@@ -12,11 +12,18 @@
           <span>{{ item.title }}</span>
         </div>
       </mt-cell>
+      <mt-cell is-link @click.native="backup">
+        <div slot="title">
+          <i :class="['indexicon', 'icon-' + 'pull-down']"></i>
+          <span>备份数据</span>
+        </div>
+      </mt-cell>
     </div>
   </section>
 </template>
 
 <script>
+import Methods from '@/services/methods'
 import NavConfig from '@/nav.config.json'
 
 export default {
@@ -31,6 +38,20 @@ export default {
 
   created () {
     this.navs = NavConfig
+  },
+
+  methods: {
+    async backup () {
+      let result = await Methods.backup()
+      if (result.ok) {
+        const url = window.URL.createObjectURL(new Blob([result.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'backup.db')
+        document.body.appendChild(link)
+        link.click()
+      }
+    }
   }
 }
 </script>
