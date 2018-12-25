@@ -8,11 +8,20 @@ import ChecksumError from '@/errors/checksumerror'
 
 class NodeService {
   async post (url, src) {
+    // 是否过期
+    const timestamp = Math.floor(Date.now() / 1000)
+    if (url !== 'auth') {
+      const expireAt = store.getters['network/expire_at']
+      if (isNaN(expireAt) || timestamp >= expireAt) {
+        store.dispatch('network/setSession', undefined)
+        return Promise.reject(new AuthError())
+      }
+    }
+
+    // 构造消息
     let key = this.genKey()
     const server = store.getters['network/server']
     const result = this.encrypt(key, key, JSON.stringify(src))
-
-    // 构造消息
     const message = {
       'data': result[0],
       'checksum': result[1],
@@ -43,6 +52,7 @@ class NodeService {
       store.dispatch('network/setSession', undefined)
       return Promise.reject(new AuthError())
     }
+    store.dispatch('network/setExpireAt', timestamp * 5 * 60)
 
     // 解密消息
     let rawdata, checksum
@@ -57,11 +67,19 @@ class NodeService {
   }
 
   async download (url, src) {
+    // 是否过期
+    const timestamp = Math.floor(Date.now() / 1000)
+    const expireAt = store.getters['network/expire_at']
+    if (isNaN(expireAt) || timestamp >= expireAt) {
+      store.dispatch('network/setSession', undefined)
+      return Promise.reject(new AuthError())
+    }
+
+    // 构造消息
     let key = this.genKey()
     const server = store.getters['network/server']
     const result = this.encrypt(key, key, JSON.stringify(src))
 
-    // 构造消息
     const message = {
       'data': result[0],
       'checksum': result[1],
@@ -94,6 +112,8 @@ class NodeService {
     } else if (response.status !== 200) {
       return Promise.reject(new Error(`Error POST ${url} : status ${response.status}`))
     }
+
+    store.dispatch('network/setExpireAt', timestamp * 5 * 60)
     return response.data
   }
 

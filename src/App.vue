@@ -39,6 +39,13 @@ export default {
     this.$store.dispatch('network/setServer', 'http://127.0.0.1:18080')
     this.$store.dispatch('network/setCode', localStorage.getItem('network/code'))
     this.$store.dispatch('network/setSession', localStorage.getItem('network/session'))
+    this.$store.dispatch('network/setExpireAt', localStorage.getItem('network/expire_at'))
+  },
+
+  async mounted () {
+    const timestamp = Math.floor(Date.now() / 1000)
+    const expireAt = parseInt(localStorage.getItem('network/expire_at'))
+    this.updatePopupVisible(isNaN(expireAt) || expireAt >= timestamp)
   }
 }
 </script>

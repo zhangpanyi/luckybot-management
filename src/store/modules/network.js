@@ -1,6 +1,7 @@
 export default {
   state: {
     server: '',
+    expire_at: 0,
     code: undefined,
     session: undefined
   },
@@ -18,6 +19,10 @@ export default {
     setSession (state, payload) {
       state.session = payload
       localStorage.setItem('network/session', payload)
+    },
+    setExpireAt (state, payload) {
+      state.expire_at = payload
+      localStorage.setItem('network/expire_at', payload)
     }
   },
 
@@ -30,16 +35,16 @@ export default {
     },
     setSession: ({commit}, value) => {
       commit('setSession', value)
+    },
+    setExpireAt: ({commit}, value) => {
+      commit('setExpireAt', value)
     }
   },
 
   getters: {
-    code: function (state) {
-      return state.code
-    },
-    session: function (state) {
-      return state.session
-    },
-    server: state => state.server
+    code: state => state.code,
+    server: state => state.server,
+    session: state => state.session,
+    expire_at: state => state.expire_at
   }
 }
