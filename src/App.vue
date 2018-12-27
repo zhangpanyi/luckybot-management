@@ -36,7 +36,7 @@ export default {
   async created () {
     const session = localStorage.getItem('network/session')
     this.popupVisible = !(session && session.length > 0)
-    this.$store.dispatch('network/setServer', 'http://127.0.0.1:18080')
+    this.$store.dispatch('network/setServer', 'http://127.0.0.1:18127')
     this.$store.dispatch('network/setCode', localStorage.getItem('network/code'))
     this.$store.dispatch('network/setSession', localStorage.getItem('network/session'))
     this.$store.dispatch('network/setExpireAt', localStorage.getItem('network/expire_at'))
